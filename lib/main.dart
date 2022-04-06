@@ -1,4 +1,3 @@
-// import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -37,6 +36,7 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<FilteredTodosCubit>(
             create: ((context) => FilteredTodosCubit(
+                initialTodos: context.read<TodoListCubit>().state.todos,
                 todoFilterCubit: BlocProvider.of<TodoFilterCubit>(context),
                 todoListCubit: BlocProvider.of<TodoListCubit>(context),
                 todoSearchCubit: BlocProvider.of<TodoSearchCubit>(context))))

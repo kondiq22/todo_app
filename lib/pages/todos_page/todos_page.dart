@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/pages/todos_page/create_todo.dart';
 import 'package:todo_app/pages/todos_page/search_and_filter_todo.dart';
+import 'package:todo_app/pages/todos_page/show_todos.dart';
 
 import '../../cubits/cubits.dart';
 import 'todo_header.dart';
@@ -25,6 +26,7 @@ class TodosPage extends StatelessWidget {
                   CreateTodo(),
                   SizedBox(height: 20.0),
                   SearchAndFilterTodo(),
+                  ShowTodos(),
                 ],
               )),
         ),
