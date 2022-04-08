@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:todo_app/cubits/cubits.dart';
+import '/blocs/blocs.dart';
 
 import '../../models/todo_model.dart';
 
@@ -10,7 +10,7 @@ class ShowTodos extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final todos = context.watch<FilteredTodosCubit>().state.filteredTodos;
+    final todos = context.watch<FilteredTodosBloc>().state.filteredTodos;
     return ListView.separated(
       shrinkWrap: true,
       primary: false,
@@ -24,7 +24,9 @@ class ShowTodos extends StatelessWidget {
           background: showBackground(0),
           secondaryBackground: showBackground(1),
           onDismissed: (_) {
-            context.read<TodoListCubit>().removeTodo(todos[index]);
+            context
+                .read<TodoListBloc>()
+                .add(RemoveTodoEvent(todo: todos[index]));
           },
           confirmDismiss: (_) {
             return showDialog(
@@ -125,9 +127,10 @@ class _TodoItemState extends State<TodoItem> {
                         () {
                           _error = textController.text.isEmpty ? true : false;
                           if (!_error) {
-                            context
-                                .read<TodoListCubit>()
-                                .editTodo(widget.todo.id, textController.text);
+                            context.read<TodoListBloc>().add(EditTodoEvent(
+                                id: widget.todo.id,
+                                todoDesc: textController.text));
+
                             Navigator.pop(context);
                           }
                         },
@@ -144,7 +147,7 @@ class _TodoItemState extends State<TodoItem> {
       leading: Checkbox(
         value: widget.todo.completed,
         onChanged: (bool? checked) {
-          context.read<TodoListCubit>().toggleTodo(widget.todo.id);
+          context.read<TodoListBloc>().add(ToggleTodoEvent(id: widget.todo.id));
         },
       ),
       title: Text(widget.todo.desc),
