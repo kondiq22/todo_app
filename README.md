@@ -1,5 +1,5 @@
 # todo_app
 
-The application allows you to add, edit and delete tasks, as well as group and search them.
+# The application allows you to add, edit and delete tasks, as well as group and search them.
 
-## Getting Started
+In this version I have implemented Blocs with StreamSubscription.
